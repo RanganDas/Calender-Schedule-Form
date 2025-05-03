@@ -1,38 +1,150 @@
-.App {
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: linear-gradient(-45deg, #d6d6d6, #8956b8, #514ff1, #8956b8);
+  background-size: 400% 400%;
+  animation: gradientBackground 15s ease infinite;
+}
+
+/* Keyframes for the animated gradient */
+@keyframes gradientBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+.container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 30px;
+  background: linear-gradient(#997cff, #4d0050);
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  border: #dddddd 2px solid;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #ffffff;
+}
+
+form label {
+  display: block;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #d8d8d8;
+}
+
+form input,
+form select {
+  width: 100%;
+  padding: 15px;
+  margin-top: 6px;
+  border: none;
+  border-radius: 20px;
+  font-size: 15px;
+  box-sizing: border-box;
+  background: #898bfa;
+  color: #d1e7dd;
+}
+
+.book-btn {
+  background-color: #007bff;
+  color: rgb(245, 245, 245);
+  padding: 12px;
+  width: 100%;
+  font-size: 16px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.book-btn:hover {
+  background-color: #0056b3;
+}
+
+.alert {
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #d1e7dd;
+  color: #0f5132;
+  border-radius: 6px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.booked-list {
+  margin-top: 30px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.booking-item {
+  color: #ffffff;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: space-between;
+  background: #4d15d1;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+}
+
+.cancel-btn {
+  background-color: #dc3545;
   color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease;
 }
 
-.App-link {
-  color: #61dafb;
+.cancel-btn:hover {
+  background-color: #b02a37;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media screen and (max-width: 600px) {
+  .container {
+    margin: 20px;
+    padding: 20px;
   }
-  to {
-    transform: rotate(360deg);
-  }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  width: 300px;
+}
+
+.booking-code {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 1rem 0;
+  color: #0984e3;
 }
