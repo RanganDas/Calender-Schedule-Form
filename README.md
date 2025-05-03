@@ -1,70 +1,118 @@
-# Getting Started with Create React App
+🎙️ Studio Booking App (React)
+This is a simple Studio Booking App built using React. It allows users to:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Book a studio session for a specific time slot
 
-## Available Scripts
+Receive a unique booking code
 
-In the project directory, you can run:
+Join the session during their booked slot
 
-### `npm start`
+Automatically cancel unjoined bookings after 30 minutes
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+View all upcoming bookings
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Cancel a booking with a valid code
 
-### `npm test`
+Features:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+ Auto-reminders for booking time
 
-### `npm run build`
+ Auto-cancellation of inactive bookings
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+ Real-time slot availability check
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+ Booking code validation on cancellation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Functionality Breakdown:
 
-### `npm run eject`
+1. Booking Form
+Users fill out:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Name
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Email
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Phone (with country code selector)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Date
 
-## Learn More
+Time slot (15-minute intervals between 9 AM to 9 PM)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The form checks:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+If all fields are filled
 
-### Code Splitting
+Email & phone number format
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Future date/time selection
 
-### Analyzing the Bundle Size
+Slot availability
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+2. Booking Code Generation
+On successful booking:
 
-### Making a Progressive Web App
+A 6-digit random code is generated
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Code is shown in a modal
 
-### Advanced Configuration
+Booking is stored in localStorage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+3. Reminders & Auto-Cancellation
+Using setInterval:
 
-### Deployment
+The app checks every second if any session is due
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+If due and not joined → alert user
 
-### `npm run build` fails to minify
+If 30 minutes pass and user hasn’t joined → auto-cancel the booking
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+4. Join & Cancel Booking
+Users can join only during their 30-min window
+
+Once joined, it is saved in joinedBookings (localStorage)
+
+Canceling a booking requires entering the correct 6-digit code
+
+5. Data Persistence
+All booking and join data is saved in localStorage
+
+On page reload, all state is preserved
+
+File Used
+App.js: Contains the entire frontend logic and UI
+
+App.css: (Not shown here) should include the styling for layout, modal, buttons, etc.
+
+Tech Stack
+React (Hooks: useState, useEffect)
+
+JavaScript (ES6+)
+
+LocalStorage for temporary persistence
+
+Basic CSS for styling
+
+
+Decisions Made
+No Backend: Chose to use localStorage instead of a backend/database for simplicity and quick prototyping.
+
+Time Check Logic: Uses setInterval every second for real-time booking status updates.
+
+15-Minute Slots: Allows for precise control over session durations.
+
+Booking Code Auth: Adds a layer of validation without requiring user authentication.
+
+Future Improvements
+ Backend Integration (Node.js + MongoDB or Firebase) to store and manage bookings persistently.
+
+ User Authentication (JWT-based login/signup) to associate bookings with accounts.
+
+ Email Notifications to send confirmation, reminders, and cancellations.
+
+ Admin Panel to manage bookings, see user activity, and manually override sessions.
+
+ Responsive Design and mobile-first enhancements.
+
+ Multi-user Support with conflict-free booking logic for overlapping slots.
+
+ Analytics Dashboard to visualize bookings over time, peak hours, etc.
