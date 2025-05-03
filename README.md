@@ -1,103 +1,100 @@
-Studio Booking App (React)
-This is a Studio Booking Application built with React. It allows users to book time slots for studio sessions, join their sessions during the allocated window, and manage or cancel bookings. The app handles timing, validation, and auto-cancellation without the need for a backend.
+# Studio Booking App (React)
 
-Features
-Book studio sessions for a specific time slot
+This is a simple Studio Booking App built using **React**. It allows users to:
 
-Generate and display a unique 6-digit booking code
+- Book a studio session for a specific time slot.
+- Receive a unique booking code.
+- Join the session during their booked slot.
+- Automatically cancel unjoined bookings after 30 minutes.
+- View all upcoming bookings.
+- Cancel a booking with a valid code.
 
-Join the session during the allotted time window
+---
 
-Auto-cancel bookings that are not joined within 30 minutes
+## Features
 
-View a list of upcoming bookings
+- **Auto-reminders** for booking time.
+- **Auto-cancellation** of inactive bookings.
+- **Real-time slot availability check**.
+- **Booking code validation** on cancellation.
 
-Cancel a booking using a valid booking code
+---
 
-Functionality Overview
-Booking Form
-Users are prompted to provide:
+## Functionality Breakdown
 
-Name
+### 1. Booking Form (Users fill out):
 
-Email
+- **Name**
+- **Email**
+- **Phone** (with country code selector)
+- **Date**
+- **Time slot** (15-minute intervals between 9 AM to 9 PM)
 
-Phone number (with country code selector)
+The form checks:
 
-Date
+- If all fields are filled.
+- Email & phone number format.
+- Future date/time selection.
+- Slot availability.
 
-Time slot (15-minute intervals between 9:00 AM and 9:00 PM)
+### 2. Booking Code Generation
 
-Form validations include:
+- On successful booking:
+  - A **6-digit random code** is generated.
+  - Code is shown in a modal.
+  - Booking is stored in **localStorage**.
 
-All fields must be filled out
+### 3. Reminders & Auto-Cancellation
 
-Email and phone formats must be valid
+- **setInterval** checks the session status every second:
+  - If due and not joined → **alert user**.
+  - If 30 minutes pass and the user hasn't joined → **auto-cancel the booking**.
 
-The selected date/time must be in the future
+### 4. Join & Cancel Booking
 
-The time slot must be available (not already booked)
+- Users can join only during their **30-minute window**.
+- Once joined, it is saved in **joinedBookings** (localStorage).
+- Canceling a booking requires entering the correct **6-digit code**.
 
-Booking Code Generation
-A random 6-digit booking code is generated upon successful booking
+### 5. Data Persistence
 
-The code is shown in a modal
+- All booking and join data is saved in **localStorage**.
+- On page reload, all state is preserved.
 
-The booking details are stored in localStorage
+---
 
-Reminders and Auto-Cancellation
-A setInterval checks every second whether a session is due
+## Files Used
 
-If a session is due and the user hasn't joined, an alert is shown
+- **App.js**: Contains the entire frontend logic and UI.
+- **App.css**: (Not shown here) should include the styling for layout, modal, buttons, etc.
 
-If 30 minutes pass and the session remains unjoined, it is automatically canceled
+---
 
-Join and Cancel Booking
-Users may join only during their scheduled 30-minute window
+## Tech Stack
 
-Upon joining, the booking is moved to a joinedBookings list in localStorage
+- **React** (Hooks: `useState`, `useEffect`)
+- **JavaScript** (ES6+)
+- **localStorage** for temporary persistence
+- Basic **CSS** for styling
 
-Bookings can be canceled using the associated 6-digit code
+---
 
-Data Persistence
-All booking data is stored in the browser's localStorage
+## Decisions Made
 
-Data and session states are preserved even after page reload
+- **No Backend**: Chose to use **localStorage** instead of a backend/database for simplicity and quick prototyping.
+- **Time Check Logic**: Uses **setInterval** every second for real-time booking status updates.
+- **15-Minute Slots**: Allows for precise control over session durations.
+- **Booking Code Auth**: Adds a layer of validation without requiring user authentication.
 
-File Structure
-App.js: Contains the full application logic and UI
+---
 
-App.css: Responsible for styling, layout, modal design, and component visuals
+## Future Improvements
 
-Tech Stack
-React (with Hooks: useState, useEffect)
+- **Backend Integration**: Use **Node.js + MongoDB** or **Firebase** to store and manage bookings persistently.
+- **User Authentication**: Implement **JWT-based login/signup** to associate bookings with accounts.
+- **Email Notifications**: Send confirmation, reminders, and cancellations.
+- **Admin Panel**: Create an admin dashboard to manage bookings, see user activity, and manually override sessions.
+- **Responsive Design**: Mobile-first enhancements for better user experience.
+- **Multi-user Support**: Handle conflicts with overlapping slots.
+- **Analytics Dashboard**: Visualize bookings over time, peak hours, and other insights.
 
-JavaScript (ES6+)
-
-Browser localStorage for temporary persistence
-
-Basic CSS for UI styling
-
-Design Decisions
-LocalStorage over Backend: Chosen for quick prototyping and simplicity
-
-Real-time Booking Checks: Implemented using setInterval for timely reminders and cancellations
-
-Short Time Intervals: 15-minute slots ensure efficient scheduling
-
-Booking Code Validation: Offers basic authentication without requiring user accounts
-
-Future Improvements
-Integrate a backend (Node.js with MongoDB or Firebase) for persistent data storage
-
-Implement user authentication using JWT for session tracking
-
-Add email notifications for booking confirmations, reminders, and cancellations
-
-Develop an admin dashboard for managing bookings and viewing activity logs
-
-Improve responsiveness and accessibility for mobile devices
-
-Handle multi-user concurrency and booking conflict resolution
-
-Build an analytics dashboard to display booking patterns and usage statistics
