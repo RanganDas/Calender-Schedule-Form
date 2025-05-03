@@ -1,70 +1,100 @@
-# Getting Started with Create React App
+# Studio Booking App (React)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a simple Studio Booking App built using **React**. It allows users to:
 
-## Available Scripts
+- Book a studio session for a specific time slot.
+- Receive a unique booking code.
+- Join the session during their booked slot.
+- Automatically cancel unjoined bookings after 30 minutes.
+- View all upcoming bookings.
+- Cancel a booking with a valid code.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Auto-reminders** for booking time.
+- **Auto-cancellation** of inactive bookings.
+- **Real-time slot availability check**.
+- **Booking code validation** on cancellation.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## Functionality Breakdown
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 1. Booking Form (Users fill out):
 
-### `npm run build`
+- **Name**
+- **Email**
+- **Phone** (with country code selector)
+- **Date**
+- **Time slot** (15-minute intervals between 9 AM to 9 PM)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The form checks:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- If all fields are filled.
+- Email & phone number format.
+- Future date/time selection.
+- Slot availability.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 2. Booking Code Generation
 
-### `npm run eject`
+- On successful booking:
+  - A **6-digit random code** is generated.
+  - Code is shown in a modal.
+  - Booking is stored in **localStorage**.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 3. Reminders & Auto-Cancellation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **setInterval** checks the session status every second:
+  - If due and not joined → **alert user**.
+  - If 30 minutes pass and the user hasn't joined → **auto-cancel the booking**.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 4. Join & Cancel Booking
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Users can join only during their **30-minute window**.
+- Once joined, it is saved in **joinedBookings** (localStorage).
+- Canceling a booking requires entering the correct **6-digit code**.
 
-## Learn More
+### 5. Data Persistence
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- All booking and join data is saved in **localStorage**.
+- On page reload, all state is preserved.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## Files Used
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **App.js**: Contains the entire frontend logic and UI.
+- **App.css**: (Not shown here) should include the styling for layout, modal, buttons, etc.
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Tech Stack
 
-### Making a Progressive Web App
+- **React** (Hooks: `useState`, `useEffect`)
+- **JavaScript** (ES6+)
+- **localStorage** for temporary persistence
+- Basic **CSS** for styling
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## Decisions Made
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- **No Backend**: Chose to use **localStorage** instead of a backend/database for simplicity and quick prototyping.
+- **Time Check Logic**: Uses **setInterval** every second for real-time booking status updates.
+- **15-Minute Slots**: Allows for precise control over session durations.
+- **Booking Code Auth**: Adds a layer of validation without requiring user authentication.
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Future Improvements
 
-### `npm run build` fails to minify
+- **Backend Integration**: Use **Node.js + MongoDB** or **Firebase** to store and manage bookings persistently.
+- **User Authentication**: Implement **JWT-based login/signup** to associate bookings with accounts.
+- **Email Notifications**: Send confirmation, reminders, and cancellations.
+- **Admin Panel**: Create an admin dashboard to manage bookings, see user activity, and manually override sessions.
+- **Responsive Design**: Mobile-first enhancements for better user experience.
+- **Multi-user Support**: Handle conflicts with overlapping slots.
+- **Analytics Dashboard**: Visualize bookings over time, peak hours, and other insights.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
